@@ -1,4 +1,6 @@
 
+# frozen_string_literal: true
+
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'sam/version'
@@ -40,4 +42,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rubycritic'
   spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'unicorn'
 end
