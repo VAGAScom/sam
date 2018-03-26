@@ -32,6 +32,9 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_dependency 'hanami-cli'
+
+  spec.add_development_dependency 'aruba'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'guard'
   spec.add_development_dependency 'guard-bundler'

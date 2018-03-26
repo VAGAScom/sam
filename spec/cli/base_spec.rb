@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe 'Basic commands' do
-  context 'version' do
-    it 'returns the current Sam version' do
-      expect(false).to eq Sam::VERSION
-    end
+RSpec.describe 'hanami version', type: :cli do
+  it 'prints the current version' do
+    run_command 'sam version', Sam::VERSION
   end
 end
