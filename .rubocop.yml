@@ -1,0 +1,12 @@
+Metrics/BlockLength:
+  Exclude:
+    - Guardfile
+    - spec
+    - sam.gemspec
+
+Metrics/LineLength:
+  Exclude:
+    - sam.gemspec
+
+Style/Documentation:
+  Enabled: false
