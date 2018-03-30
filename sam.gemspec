@@ -33,6 +33,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'hanami-cli'
+  spec.add_dependency 'tty-command'
 
   spec.add_development_dependency 'aruba'
   spec.add_development_dependency 'bundler'

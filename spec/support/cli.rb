@@ -33,6 +33,8 @@ module RSpec
       def match_output(output)
         case output
         when String
+          # p all_output
+          # expect(all_output).to eq(output)
           expect(all_output).to include(output)
         when Regexp
           expect(all_output).to match(output)
