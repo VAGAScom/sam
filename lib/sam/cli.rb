@@ -9,13 +9,14 @@ module Sam
 
       require_relative 'cli/version'
       require_relative 'cli/unicorn'
+      require_relative 'cli/hunter'
 
       register 'version', Version
       register 'unicorn' do |cmd|
         cmd.register 'start', Unicorn::Spawner
+        cmd.register 'stop', Unicorn::Hunter
         # cmd.register 'run'
         # cmd.register 'monitor', Unicorn::Monitor
-        # cmd.register 'stop', Unicorn::Hunter
         # cmd.register 'restart'
         # cmd.register 'reload'
       end

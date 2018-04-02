@@ -1,28 +1,35 @@
 # frozen_string_literal: true
 
-module Sam::CLI::Commands
-  module Unicorn
-    class Spawner < Hanami::CLI::Command
-      desc 'Start the unicorn process'
+require_relative '../unicorn'
 
-      # rubocop:disable Metrics/LineLength
-      option :environment, values: %w[production development test staging], default: 'production', desc: 'RACK_ENV to be used', aliases: %w[--env -e]
-      option :config, type: :path, desc: 'The path to the server configuration', default: 'config/unicorn/production.rb', aliases: ['-c']
+module Sam
+  module CLI
+    module Commands
+      module Unicorn
+        class Spawner < Hanami::CLI::Command
+          # rubocop:disable Metrics/LineLength
+          desc 'Start the unicorn process'
+          option :environment, values: %w[production development test staging], default: 'production', desc: 'RACK_ENV to be used', aliases: %w[--env -e]
+          option :config, type: :path, desc: 'The path to the server configuration', default: 'config/unicorn/production.rb', aliases: ['-c']
 
-      example [
-        '-e development  #Starts the server in development mode',
-        '-e production --config=config/server_settings.rb  #Starts the server in production mode using the config/server_settings.rb config file'
-      ]
-      # rubocop:enable Metrics/LineLength
+          example [
+            '-e development  #Starts the server in development mode',
+            '-e production --config=config/server_settings.rb  #Starts the server in production mode using the config/server_settings.rb config file'
+          ]
+          # rubocop:enable Metrics/LineLength
 
-      def call(environment:, config:); end
+          def call(environment:, config:); end
+        end
+      end
     end
   end
 end
 
 module Sam
   module Unicorn
-    class Spawner
+    require 'unicorn'
+
+    class Breeder
       COMMAND = 'bundle exec unicorn -D -P ${PID_PATH} -c ${CONF_PATH}'
 
       def call; end
