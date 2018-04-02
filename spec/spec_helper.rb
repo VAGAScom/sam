@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
-require 'sam'
-
 require 'simplecov'
 
-SimpleCov.start
+SimpleCov.start do
+  add_filter { |source| source.lines_of_code <= 4 }
+  add_filter { |source| source.filename =~ /_spec.rb$/ }
+
+  add_group 'CLI Commands', 'lib/sam/cli'
+  add_group 'Unicorn Support', 'lib/sam/unicorn'
+end
 
 RSpec.configure do |config|
   config.disable_monkey_patching!
@@ -27,5 +31,6 @@ RSpec.configure do |config|
 
   config.order = :random
 end
-
 require_relative 'support/cli'
+
+require 'sam'

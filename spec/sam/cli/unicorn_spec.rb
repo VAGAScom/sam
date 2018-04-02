@@ -3,7 +3,8 @@
 require 'tty-command'
 
 RSpec.describe 'sam unicorn', type: :cli do
-  # TODO: Stop unicorn after each test
+  let(:config) { '../../spec/fixtures/server_settings.rb' }
+
   describe 'start' do
     it 'prints a helpful message' do
       output = <<~OUTPUT
@@ -30,9 +31,10 @@ RSpec.describe 'sam unicorn', type: :cli do
 
     it 'environment must be one of production, development, test or staging' do
       %w[production development test staging].each do |env|
-        run_command "sam unicorn start -e #{env}", exit_status: 0
+        run_command "sam unicorn start -e #{env} -c #{config}", exit_status: 0
+        run_command "sam unicorn stop -c #{config}", exit_status: 0
       end
-      run_command 'sam unicorn start -e potato', exit_status: 1
+      run_command "sam unicorn start -e potato -c #{config}", 'Invalid param provided', exit_status: 1
     end
 
     it 'optionally receives a config file argument'

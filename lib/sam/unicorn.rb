@@ -14,3 +14,4 @@ module Sam
 end
 
 require_relative 'unicorn/identifier'
+require_relative 'unicorn/breeder'

@@ -16,7 +16,7 @@ RSpec.describe Sam::Unicorn::Identifier do
 
   it 'returns the PID of the unicorn process' do
     cmd = TTY::Command.new
-    cmd.run 'cd spec/fixtures && bundle exec unicorn -D -c $PWD/server_settings.rb'
+    cmd.run "bundle exec sam unicorn start -c #{config}"
     pid = IO.readlines('/tmp/unicorn.pid').join.chomp.to_i
     expect(identifier.call(config)).to eq(pid)
   end

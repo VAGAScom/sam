@@ -18,36 +18,17 @@ module Sam
           ]
           # rubocop:enable Metrics/LineLength
 
-          def call(environment:, config:); end
+          def call(environment:, config:)
+            config = Pathname.new(Dir.pwd).join(config)
+            p config
+            Sam::Unicorn::Breeder.new.call(environment, config)
+          end
         end
       end
     end
   end
 end
 
-module Sam
-  module Unicorn
-    require 'unicorn'
-
-    class Breeder
-      COMMAND = 'bundle exec unicorn -D -P ${PID_PATH} -c ${CONF_PATH}'
-
-      def call; end
-
-      private
-
-      def spawn_server
-        cmd = TTY::Command.new(timeout: 30)
-        cmd.run(COMMAND)
-        grab_pid
-      end
-
-      def grab_pid
-        IO.readlines(PID_PATH)
-      end
-    end
-  end
-end
 # import atexit
 # import logging
 # import psutil

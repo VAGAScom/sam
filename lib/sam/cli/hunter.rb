@@ -17,7 +17,8 @@ module Sam
           # rubocop:enable Metrics/LineLength
 
           def call(config:)
-            pid = Sam::Unicorn::Identifier.new.call(config)
+            file = Pathname.new(Dir.pwd).join(config)
+            pid = Sam::Unicorn::Identifier.new.call(file)
             Process.kill('TERM', Integer(pid))
             puts "Hunted unicorn with pid #{pid}"
           rescue Sam::Unicorn::PidfileNotFound

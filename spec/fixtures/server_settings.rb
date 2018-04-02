@@ -8,6 +8,9 @@ preload_app true
 timeout 5
 listen 8888
 
+stdout_path '/tmp/out.log'
+stderr_path '/tmp/out.log'
+
 working_directory app_path
 
 pid '/tmp/unicorn.pid'
