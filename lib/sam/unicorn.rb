@@ -15,3 +15,5 @@ end
 
 require_relative 'unicorn/identifier'
 require_relative 'unicorn/breeder'
+require_relative 'unicorn/predator'
+require_relative 'unicorn/shephered'

@@ -6,28 +6,27 @@ module Sam
   module CLI
     module Commands
       module Unicorn
-        class Spawner < Hanami::CLI::Command
+        class Monitor < Hanami::CLI::Command
           # rubocop:disable Metrics/LineLength
-          desc 'Start the unicorn process'
-          option :environment, values: %w[production development test staging], default: 'production', desc: 'RACK_ENV to be used', aliases: %w[--env -e]
+          desc 'Monitor an already running unicorn'
           option :config, type: :path, desc: 'The path to the server configuration', default: 'config/unicorn/production.rb', aliases: ['-c']
 
           example [
-            '-e development  #Starts the server in development mode',
-            '-e production --config=config/server_settings.rb  #Starts the server in production mode using the config/server_settings.rb config file'
+            '--config=config/server_settings.rb  #Starts the server in production mode using the config/server_settings.rb config file'
           ]
           # rubocop:enable Metrics/LineLength
 
-          def call(environment:, config:)
-            config = Pathname.new(Dir.pwd).join(config)
-            p config
-            Sam::Unicorn::Breeder.new.call(environment, config)
+          def call(config:)
+            Sam::Unicorn::Shephered.new.call(config)
           end
         end
       end
     end
   end
 end
+
+# Upstart reload sends SIGHUP to the process
+# Systemd expects an ExecReload= that syncronously reloads the confs.
 
 # import atexit
 # import logging

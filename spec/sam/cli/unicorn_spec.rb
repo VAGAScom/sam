@@ -3,7 +3,8 @@
 require 'tty-command'
 
 RSpec.describe 'sam unicorn', type: :cli do
-  let(:config) { '../../spec/fixtures/server_settings.rb' }
+  let(:config) { 'spec/fixtures/server_settings.rb' }
+  after(:each) { TTY::Command.new.run("bundle exec sam unicorn stop -c #{config}") }
 
   describe 'start' do
     it 'prints a helpful message' do
@@ -44,19 +45,28 @@ RSpec.describe 'sam unicorn', type: :cli do
 
   describe 'stop' do
     it 'stops the unicorn server' do
-      cmd = TTY::Command.new
-      cmd.run 'cd spec/fixtures && bundle exec unicorn -D -c $PWD/server_settings.rb'
-      path = Pathname.new(__FILE__).join('../../../fixtures/server_settings.rb')
+      TTY::Command.new.run("bundle exec sam unicorn start -c #{config} && sleep 1")
+      path = Pathname.new(Dir.pwd).join(config)
       output = "Hunted unicorn with pid #{Sam::Unicorn::Identifier.new.call(path)}"
-      run_command "bundle exec sam unicorn stop -c #{path}", output, exit_status: 0
+      run_command "sam unicorn stop -c ../../#{config}", output, exit_status: 0
     end
 
     it 'works with no unicorn running' do
-      run_command 'bundle exec sam unicorn stop', Sam::CLI::Commands::Unicorn::Hunter::NO_MORE_UNICORNS, exit_status: 0
+      run_command 'sam unicorn stop', Sam::CLI::Commands::Unicorn::Hunter::NO_MORE_UNICORNS, exit_status: 0
     end
   end
 
   describe 'monitor' do
-    it 'traps the INT, HUP, TTIN, TTOU, QUIT and WHINCH signals'
+    before(:each) { TTY::Command.new.run("bundle exec sam unicorn start -c #{config}") }
+
+    it 'if the process has stopped it should quit' do
+      pid = Process.spawn("bundle exec sam unicorn monitor -c #{config}")
+      Process.detach(pid)
+      TTY::Command.new.run("bundle exec sam unicorn stop -c #{config} && sleep 1")
+
+      expect { Process.kill(0, pid) }.to raise_error Errno::ESRCH
+    end
+
+    it 'traps the INT, TERM, HUP, TTIN, TTOU, QUIT and WHINCH signals'
   end
 end
