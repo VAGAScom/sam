@@ -4,7 +4,7 @@ require 'tty-command'
 
 RSpec.describe 'sam unicorn', type: :cli do
   let(:config) { 'spec/fixtures/server_settings.rb' }
-  after(:each) { TTY::Command.new.run("bundle exec sam unicorn stop -c #{config}") }
+  before(:each) { TTY::Command.new(printer: :null).run!("bundle exec sam unicorn stop -c #{config}") }
 
   describe 'start' do
     it 'prints a helpful message' do
@@ -30,39 +30,57 @@ RSpec.describe 'sam unicorn', type: :cli do
       run_command 'sam unicorn start --help', output, exit_status: 0
     end
 
-    it 'environment must be one of production, development, test or staging' do
+    context 'environment' do
       %w[production development test staging].each do |env|
-        run_command "sam unicorn start -e #{env} -c #{config}", exit_status: 0
-        run_command "sam unicorn stop -c #{config}", exit_status: 0
+        it "works with #{env}" do
+          run_command "sam unicorn start -e #{env} -c ../../#{config}", exit_status: 0
+          run_command "sam unicorn stop -c ../../#{config}", exit_status: 0
+        end
       end
-      run_command "sam unicorn start -e potato -c #{config}", 'Invalid param provided', exit_status: 1
+
+      it 'fails with any other value' do
+        run_command "sam unicorn start -e potato -c #{config}", 'Invalid param provided', exit_status: 1
+      end
     end
 
-    it 'optionally receives a config file argument'
-    it 'start an unicorn server'
-    it 'exits with an error code it the server can\'t start'
+    it 'fails if the config file is not found' do
+      run_command 'sam unicorn start', exit_status: 1
+    end
+
+    it 'start an unicorn server' do
+      run_command "sam unicorn start -c ../../#{config}", exit_status: 0
+      expect { Sam::Unicorn::Identifier.new.call(config) }.to_not raise_error
+      pid = Sam::Unicorn::Identifier.new.call(config)
+      expect { Process.kill(0, pid) }.to_not raise_error
+    end
   end
 
   describe 'stop' do
     it 'stops the unicorn server' do
-      TTY::Command.new.run("bundle exec sam unicorn start -c #{config} && sleep 1")
+      TTY::Command.new(printer: :null).run("bundle exec sam unicorn start -c #{config} && sleep 0.5")
       path = Pathname.new(Dir.pwd).join(config)
       output = "Hunted unicorn with pid #{Sam::Unicorn::Identifier.new.call(path)}"
       run_command "sam unicorn stop -c ../../#{config}", output, exit_status: 0
     end
 
     it 'works with no unicorn running' do
-      run_command 'sam unicorn stop', Sam::CLI::Commands::Unicorn::Hunter::NO_MORE_UNICORNS, exit_status: 0
+      run_command "sam unicorn stop -c ../../#{config}",
+                  Sam::CLI::Commands::Unicorn::Hunter::NO_MORE_UNICORNS,
+                  exit_status: 1
+    end
+
+    it 'fails if it fails to find the config file' do
+      run_command "sam unicorn stop -c #{config}", exit_status: 1
     end
   end
 
   describe 'monitor' do
-    before(:each) { TTY::Command.new.run("bundle exec sam unicorn start -c #{config}") }
+    before(:each) { TTY::Command.new(printer: :null).run("bundle exec sam unicorn start -c #{config}") }
 
     it 'if the process has stopped it should quit' do
       pid = Process.spawn("bundle exec sam unicorn monitor -c #{config}")
       Process.detach(pid)
-      TTY::Command.new.run("bundle exec sam unicorn stop -c #{config} && sleep 1")
+      TTY::Command.new(printer: :null).run("bundle exec sam unicorn stop -c #{config} && sleep 1")
 
       expect { Process.kill(0, pid) }.to raise_error Errno::ESRCH
     end

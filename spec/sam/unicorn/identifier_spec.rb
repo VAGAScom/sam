@@ -7,15 +7,20 @@ RSpec.describe Sam::Unicorn::Identifier do
   let(:config) { Pathname.new(__FILE__).join('../../../fixtures/server_settings.rb') }
 
   after(:each) do
-    TTY::Command.new.run "bundle exec sam unicorn stop -c #{config}", logger: '/dev/nul'
+    TTY::Command.new(printer: :null)
+                .run!('bundle exec sam unicorn stop -c spec/fixtures/server_settings.rb && sleep 0.5')
   end
 
   it 'raises an error if no pid_file is found' do
     expect { identifier.call(config) }.to raise_error Sam::Unicorn::PidfileNotFound
   end
 
+  it 'raises an error if the config file is not found' do
+    expect { identifier.call("../#{config}") }.to raise_error Sam::Unicorn::ConfigfileNotFound
+  end
+
   it 'returns the PID of the unicorn process' do
-    cmd = TTY::Command.new
+    cmd = TTY::Command.new(printer: :null)
     cmd.run "bundle exec sam unicorn start -c #{config}"
     pid = IO.readlines('/tmp/unicorn.pid').join.chomp.to_i
     expect(identifier.call(config)).to eq(pid)

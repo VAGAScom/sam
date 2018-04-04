@@ -4,7 +4,7 @@ RSpec.describe Sam::Unicorn::Breeder do
   subject(:breeder) { described_class.new }
   let(:config) { Pathname.new(__FILE__).join('../../../fixtures/server_settings.rb') }
   let(:env) { 'development' }
-  let(:cmd) { TTY::Command.new }
+  let(:cmd) { TTY::Command.new(printer: :null) }
 
   after(:each) do
     cmd.run "bundle exec sam unicorn stop -c #{config}"

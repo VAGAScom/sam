@@ -2,10 +2,10 @@
 
 module Sam
   module Unicorn
-    class PidfileNotFound < Errno::ENOENT
+    class PidfileNotFound < StandardError
     end
 
-    class ConfigfileNotFound < Errno::ENOENT
+    class ConfigfileNotFound < StandardError
     end
 
     class ProcessNotFound < Errno::ESRCH
