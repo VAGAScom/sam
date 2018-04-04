@@ -11,15 +11,16 @@ module Sam
       require_relative 'cli/unicorn'
       require_relative 'cli/hunter'
       require_relative 'cli/spawner'
+      require_relative 'cli/reloader'
 
       register 'version', Version
       register 'unicorn' do |cmd|
         cmd.register 'start', Unicorn::Spawner
         cmd.register 'stop', Unicorn::Hunter
+        cmd.register 'reload', Unicorn::Reloader
         cmd.register 'monitor', Unicorn::Monitor
         # cmd.register 'run'
         # cmd.register 'restart'
-        # cmd.register 'reload'
       end
     end
   end
