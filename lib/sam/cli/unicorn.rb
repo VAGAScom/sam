@@ -15,7 +15,11 @@ module Sam
           # rubocop:enable Metrics/LineLength
 
           def call(config:)
-            Sam::Unicorn::Shephered.new.call(config)
+            path = Pathname.new(Dir.pwd).join(config)
+            Sam::Unicorn::Shephered.new.call(path)
+          rescue Sam::Unicorn::ProcessNotFound
+            puts 'Unicorn exited'
+            exit 1
           end
         end
       end

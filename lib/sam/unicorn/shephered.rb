@@ -5,12 +5,15 @@ module Sam
     class Shephered
       def initialize
         setup_signal_handlers
+        @restarting = false
       end
 
-      def call(path)
+      def call(path, timeout: 10)
+        @timeout = timeout
         @config ||= Pathname.new(Dir.pwd).join(path)
         loop do
           alive?
+          sleep 1
         end
       end
 
@@ -21,7 +24,7 @@ module Sam
       end
 
       def setup_signal_handlers
-        trap('HUP') { restart_unicorn }
+        trap('HUP') { reload_unicorn }
         trap('QUIT') { forward_signal('QUIT') }
         trap('USR2') { forward_signal('USR2') }
         trap('TTOU') { forward_signal('TTOU') }
@@ -29,25 +32,19 @@ module Sam
         trap('TERM') { forward_signal('QUIT') }
       end
 
+      def reload_unicorn
+        @restarting = true
+        @pid = Cloner.new.call(@config, timeout: @timeout)
+        @restarting = false
+      end
+
       def forward_signal(signal)
         puts "Sending #{signal} to unicorn #{pid}"
         Process.kill(signal, pid)
       end
 
-      def restart_unicorn
-        puts "Cloning unicorn tagged #{pid}"
-        Process.kill('USR2', pid)
-        puts 'Waiting for clone process to conclude...'
-        sleep 10
-        # File.exist? '/tmp/unicorn.pid.oldbin'
-        newpid = Identifier.new.call(@config)
-        puts "New unicorn cloned with tag #{newpid}. Reaping it's predecessor..."
-        Process.kill('QUIT', pid)
-        @pid = newpid
-        puts 'No one suspects a thing.'
-      end
-
       def alive?
+        return if @restarting
         Process.kill(0, pid)
       rescue Errno::ESRCH
         raise ProcessNotFound
