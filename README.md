@@ -1,6 +1,8 @@
 # Sam
 
-Sam is a small CLI so that you can run unicorn (puma soon) using either upstart or systemd and have it do a 0-downtime restart. 
+![Sam](https://vignette.wikia.nocookie.net/looneytunes/images/c/c9/Sam_Sheepdog_300-1-.gif/revision/latest?cb=20170411195916)
+
+Sam, the shepphered, will look after your unicorns so that they play nice with `upstarts` and even `systemds`. 
 
 ## Installation
 
@@ -20,7 +22,12 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+**Sam** comes with the following commands:
+
+1. `unicorn start`: starts an  `unicorn` instance
+2. `unicorn stop`: stops an `unicorn` instance
+3. `unicorn monitor`: start a monitoring loop over the running `unicorn` instance. It will forward the signals `HUP, USR2, TERM, QUIT, TTIN, TTOU` to the `unicorn` instance. `HUP` will do an graceful reload of the application
+4. `unicorn reload`: reloads the `unicorn` instance by issuing a `USR2` followed by a `QUIT` signal a few seconds later
 
 ## Development
 
