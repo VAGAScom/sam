@@ -16,7 +16,7 @@ RSpec.describe 'sam unicorn stop', type: :cli do
 
     it 'works with no unicorn running' do
       run_command "sam unicorn stop -c ../../#{config}",
-                  Sam::CLI::Commands::Unicorn::Hunter::NO_MORE_UNICORNS,
+                  Sam::CLI::Commands::Unicorn::Reaper::NO_MORE_UNICORNS,
                   exit_status: 1
     end
 

@@ -5,24 +5,18 @@ module Sam
     class Cloner
       def call(config, timeout: 10)
         pid = Identifier.new.call(config)
+        # warn "Cloning unicorn tagged #{pid}"
         Process.kill('USR2', pid)
+        # warn "Waiting #{timeout} seconds for clone process to conclude..."
         sleep timeout
         newpid = Identifier.new.call(config)
+        # warn "New unicorn cloned with tag #{newpid}. Reaping it's predecessor..."
         Process.kill('QUIT', pid)
         newpid
-        # rescue Errno::ESRCH
-        # raise ProcessNotFound
+        # warn 'No one suspects a thing.'
+      rescue Errno::ESRCH
+        raise ProcessNotFound, "No process with PID #{pid} found"
       end
     end
   end
 end
-
-# puts "Cloning unicorn tagged #{pid}"
-# puts 'Waiting for clone process to conclude...'
-# sleep 10
-# # File.exist? '/tmp/unicorn.pid.oldbin'
-# newpid = Identifier.new.call(@config)
-# puts "New unicorn cloned with tag #{newpid}. Reaping it's predecessor..."
-# Process.kill('QUIT', pid)
-# @pid = newpid
-# puts 'No one suspects a thing.'

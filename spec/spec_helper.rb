@@ -30,5 +30,5 @@ RSpec.configure do |config|
 end
 
 require_relative 'support/cli'
-
+require 'tty-command'
 require 'sam'

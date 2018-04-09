@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'tty-command'
-
 RSpec.describe 'sam unicorn', type: :cli do
   let(:config) { 'spec/fixtures/server_settings.rb' }
   before(:each) { TTY::Command.new(printer: :null).run!("bundle exec sam unicorn stop -c #{config}") }

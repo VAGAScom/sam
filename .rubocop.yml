@@ -16,3 +16,7 @@ Style/Documentation:
 
 Metrics/LineLength:
   Max: 120
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - !ruby/regexp /.*_spec\.rb$/

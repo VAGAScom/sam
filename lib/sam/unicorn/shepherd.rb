@@ -2,7 +2,7 @@
 
 module Sam
   module Unicorn
-    class Shephered
+    class Shepherd
       def initialize
         setup_signal_handlers
         @restarting = false
@@ -39,7 +39,7 @@ module Sam
       end
 
       def forward_signal(signal)
-        puts "Sending #{signal} to unicorn #{pid}"
+        warn "Sending #{signal} to unicorn #{pid}"
         Process.kill(signal, pid)
       end
 

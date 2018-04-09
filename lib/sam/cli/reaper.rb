@@ -4,7 +4,7 @@ module Sam
   module CLI
     module Commands
       module Unicorn
-        class Hunter < Hanami::CLI::Command
+        class Reaper < Hanami::CLI::Command
           NO_MORE_UNICORNS = 'Unicorns are already extinct'
 
           # rubocop:disable Metrics/LineLength
@@ -19,7 +19,7 @@ module Sam
           def call(config:)
             path = Pathname.new(Dir.pwd).join(config)
             result = Sam::Unicorn::Predator.new.call(path)
-            puts "Hunted unicorn with pid #{result}"
+            warn "Hunted unicorn with pid #{result}"
           rescue Sam::Unicorn::PidfileNotFound
             puts NO_MORE_UNICORNS
             exit 1
