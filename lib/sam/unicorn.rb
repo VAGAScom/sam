@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Sam
-  module Unicorn
+  module Errors
     class PidfileNotFound < StandardError
     end
 

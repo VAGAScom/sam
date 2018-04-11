@@ -9,6 +9,7 @@ module Sam
 
       require_relative 'cli/version'
       require_relative 'cli/unicorn'
+      require_relative 'cli/puma'
 
       register 'version', Version
       register 'unicorn' do |cmd|
@@ -17,6 +18,10 @@ module Sam
         cmd.register 'reload', Unicorn::Reloader
         cmd.register 'monitor', Unicorn::Monitor
         cmd.register 'run', Unicorn::Runner
+      end
+
+      register 'puma' do |cmd|
+        cmd.register 'start', Puma::Spawner
       end
     end
   end

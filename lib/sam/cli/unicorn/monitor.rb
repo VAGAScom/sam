@@ -17,8 +17,8 @@ module Sam
           def call(config:)
             path = Pathname.new(Dir.pwd).join(config)
             Sam::Unicorn::Shepherd.new.call(path)
-          rescue Sam::Unicorn::ProcessNotFound
-            puts 'Unicorn exited'
+          rescue Errors::ProcessNotFound
+            warn 'Unicorn exited'
             exit 1
           end
         end

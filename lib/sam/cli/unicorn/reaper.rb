@@ -20,11 +20,11 @@ module Sam
             path = Pathname.new(Dir.pwd).join(config)
             result = Sam::Unicorn::Predator.new.call(path)
             warn "Hunted unicorn with pid #{result}"
-          rescue Sam::Unicorn::PidfileNotFound
-            puts NO_MORE_UNICORNS
+          rescue Errors::PidfileNotFound
+            warn NO_MORE_UNICORNS
             exit 1
-          rescue Sam::Unicorn::ConfigfileNotFound => ex
-            puts ex.message
+          rescue Errors::ConfigfileNotFound => ex
+            warn ex.message
             exit 1
           end
         end

@@ -9,6 +9,6 @@ RSpec.describe Sam::Unicorn::Predator do
     cmd.run 'bundle exec sam unicorn start -c spec/fixtures/server_settings.rb'
     expect { predator.call(config) }.to_not raise_error
     sleep 0.5
-    expect { Sam::Unicorn::Identifier.new.call(config) }.to raise_error Sam::Unicorn::PidfileNotFound
+    expect { Sam::Unicorn::Identifier.new.call(config) }.to raise_error Sam::Errors::PidfileNotFound
   end
 end

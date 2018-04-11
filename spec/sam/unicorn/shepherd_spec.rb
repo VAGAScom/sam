@@ -27,6 +27,6 @@ RSpec.describe Sam::Unicorn::Shepherd do
   it 'exits in case the unicorn process dies' do
     thread = Thread.fork { shepherd.call(config) }
     cmd.run 'bundle exec sam unicorn stop -c spec/fixtures/server_settings.rb'
-    expect { thread.join }.to raise_error Sam::Unicorn::ProcessNotFound
+    expect { thread.join }.to raise_error Sam::Errors::ProcessNotFound
   end
 end

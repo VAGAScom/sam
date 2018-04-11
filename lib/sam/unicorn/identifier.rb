@@ -19,13 +19,13 @@ module Sam
       def read_pidfile
         IO.readlines(@configurator.set[:pid]).join.chomp
       rescue Errno::ENOENT
-        raise PidfileNotFound, "PID File #{@configurator.set[:pid]} not found"
+        raise Errors::PidfileNotFound, "PID File #{@configurator.set[:pid]} not found"
       end
 
       def configuration(config_file)
         IO.readlines(config_file).join
       rescue Errno::ENOENT
-        raise ConfigfileNotFound, "File #{config_file} not found"
+        raise Errors::ConfigfileNotFound, "File #{config_file} not found"
       end
     end
   end

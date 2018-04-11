@@ -15,7 +15,7 @@ module Sam
         newpid
         # warn 'No one suspects a thing.'
       rescue Errno::ESRCH
-        raise ProcessNotFound, "No process with PID #{pid} found"
+        raise Errors::ProcessNotFound, "No process with PID #{pid} found"
       end
     end
   end

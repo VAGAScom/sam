@@ -3,7 +3,3 @@
 require 'sam/version'
 require 'sam/unicorn'
 require 'sam/cli'
-
-module Sam
-  # Your code goes here...
-end

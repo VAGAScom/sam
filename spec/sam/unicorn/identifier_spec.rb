@@ -12,11 +12,11 @@ RSpec.describe Sam::Unicorn::Identifier do
   end
 
   it 'raises an error if no pid_file is found' do
-    expect { identifier.call(config) }.to raise_error Sam::Unicorn::PidfileNotFound
+    expect { identifier.call(config) }.to raise_error Sam::Errors::PidfileNotFound
   end
 
   it 'raises an error if the config file is not found' do
-    expect { identifier.call("../#{config}") }.to raise_error Sam::Unicorn::ConfigfileNotFound
+    expect { identifier.call("../#{config}") }.to raise_error Sam::Errors::ConfigfileNotFound
   end
 
   it 'returns the PID of the unicorn process' do

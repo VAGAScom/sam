@@ -47,7 +47,7 @@ module Sam
         return if @restarting
         Process.kill(0, pid)
       rescue Errno::ESRCH
-        raise ProcessNotFound
+        raise Errors::ProcessNotFound
       end
     end
   end
