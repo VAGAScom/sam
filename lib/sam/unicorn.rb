@@ -1,18 +1,5 @@
 # frozen_string_literal: true
 
-module Sam
-  module Errors
-    class PidfileNotFound < StandardError
-    end
-
-    class ConfigfileNotFound < StandardError
-    end
-
-    class ProcessNotFound < Errno::ESRCH
-    end
-  end
-end
-
 require_relative 'unicorn/identifier'
 require_relative 'unicorn/breeder'
 require_relative 'unicorn/predator'

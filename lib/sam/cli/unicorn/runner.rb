@@ -18,10 +18,13 @@ module Sam
           ]
           # rubocop:enable Metrics/LineLength
 
-          def call(config:, env:, timeout:)
+          def call(config:, environment:, timeout:)
             path = Pathname.new(Dir.pwd).join(config)
-            Sam::Unicorn::Breeder.new.call(env, path)
-            Sam::Unicorn::Shepherd.new.call(path, timeout: timeout)
+            Sam::Unicorn::Breeder.new.call(environment, path)
+            Sam::Unicorn::Shepherd.new.call(path, timeout: Integer(timeout))
+          rescue Errors::ProcessNotFound
+            warn 'Unicorn seems dead.'
+            exit 1
           end
         end
       end

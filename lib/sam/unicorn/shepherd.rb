@@ -30,6 +30,7 @@ module Sam
         trap('TTOU') { forward_signal('TTOU') }
         trap('TTIN') { forward_signal('TTIN') }
         trap('TERM') { forward_signal('QUIT') }
+        trap('INT') { forward_signal('INT') }
       end
 
       def reload_unicorn
