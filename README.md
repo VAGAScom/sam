@@ -1,7 +1,10 @@
 # Sam
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/a8c24394996582c1b59f/maintainability)](https://codeclimate.com/github/VAGAScom/sam/maintainability)
+[![Gem Version](https://badge.fury.io/rb/sam.svg)](https://badge.fury.io/rb/sam)
+[![Build Status](https://travis-ci.org/VAGAScom/sam.svg?branch=master)](https://travis-ci.org/VAGAScom/sam)
 [![Dependency Status](https://beta.gemnasium.com/badges/github.com/VAGAScom/sam.svg)](https://beta.gemnasium.com/projects/github.com/VAGAScom/sam)
+
 
 
 ![Sam](https://vignette.wikia.nocookie.net/looneytunes/images/c/c9/Sam_Sheepdog_300-1-.gif/revision/latest?cb=20170411195916)
