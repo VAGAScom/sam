@@ -1,5 +1,9 @@
 # Sam
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/a8c24394996582c1b59f/maintainability)](https://codeclimate.com/github/VAGAScom/sam/maintainability)
+[![Dependency Status](https://beta.gemnasium.com/badges/github.com/VAGAScom/sam.svg)](https://beta.gemnasium.com/projects/github.com/VAGAScom/sam)
+
+
 ![Sam](https://vignette.wikia.nocookie.net/looneytunes/images/c/c9/Sam_Sheepdog_300-1-.gif/revision/latest?cb=20170411195916)
 
 Sam, the shepphered, will look after your unicorns so that they play nice with `upstarts` and even `systemds`. 
@@ -28,6 +32,7 @@ Or install it yourself as:
 2. `unicorn stop`: stops an `unicorn` instance
 3. `unicorn monitor`: start a monitoring loop over the running `unicorn` instance. It will forward the signals `HUP, USR2, TERM, QUIT, TTIN, TTOU` to the `unicorn` instance. `HUP` will do an graceful reload of the application
 4. `unicorn reload`: reloads the `unicorn` instance by issuing a `USR2` followed by a `QUIT` signal a few seconds later
+5. `unicorn run`: starts and monitors an `unicorn` instance
 
 ## Development
 

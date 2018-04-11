@@ -9,10 +9,6 @@ module Sam
 
       require_relative 'cli/version'
       require_relative 'cli/unicorn'
-      require_relative 'cli/reaper'
-      require_relative 'cli/spawner'
-      require_relative 'cli/reloader'
-      require_relative 'cli/monitor'
 
       register 'version', Version
       register 'unicorn' do |cmd|
