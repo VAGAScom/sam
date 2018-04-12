@@ -12,13 +12,13 @@ RSpec.describe Sam::Puma::Identifier do
     expect { identifier.call("../#{config}") }.to raise_error Sam::Errors::ConfigfileNotFound
   end
 
-  xit 'returns the PID of the unicorn process' do
+  it 'returns the PID of the unicorn process' do
     cmd = TTY::Command.new(printer: :null)
     cmd.run "bundle exec sam puma start -c #{config}"
     pid = IO.readlines('/tmp/puma.pid').join.chomp.to_i
     expect(identifier.call(config)).to eq(pid)
   ensure
     TTY::Command.new(printer: :null)
-                .run!('bundle exec sam puma stop -c spec/fixtures/server_settings.rb && sleep 0.5')
+                .run!('bundle exec sam puma stop -c spec/fixtures/puma_settings.rb && sleep 0.5')
   end
 end
