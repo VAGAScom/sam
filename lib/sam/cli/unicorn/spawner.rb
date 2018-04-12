@@ -20,7 +20,7 @@ module Sam
           def call(environment:, config:)
             config = Pathname.new(Dir.pwd).join(config)
             Sam::Unicorn::Breeder.new.call(environment, config)
-            warn "Started unicorn for environment #{environment} and configuration file: #{config}"
+            warn "We have a newborn unicorn for environment #{environment} and configuration file: #{config}"
           end
         end
       end

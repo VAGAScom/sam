@@ -22,6 +22,7 @@ module Sam
 
       register 'puma' do |cmd|
         cmd.register 'start', Puma::Spawner
+        cmd.register 'stop', Puma::Reaper
       end
     end
   end

@@ -6,7 +6,7 @@ module Sam
       module Puma
         class Spawner < Hanami::CLI::Command
           # rubocop:disable Metrics/LineLength
-          desc 'Start the unicorn process'
+          desc 'Start the puma process'
 
           option :environment, values: %w[production development test staging], default: 'production', desc: 'RACK_ENV to be used', aliases: %w[--env -e]
           option :config, type: :path, desc: 'The path to the server configuration', default: 'config/puma/production.rb', aliases: ['-c']
@@ -20,7 +20,7 @@ module Sam
           def call(environment:, config:)
             config = Pathname.new(Dir.pwd).join(config)
             Sam::Puma::Breeder.new.call(environment, config)
-            warn "Started unicorn for environment #{environment} and configuration file: #{config}"
+            warn "We have a newborn puma for environment #{environment} and configuration file: #{config}"
           end
         end
       end
