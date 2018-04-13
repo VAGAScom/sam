@@ -3,3 +3,4 @@
 require_relative 'puma/identifier'
 require_relative 'puma/breeder'
 require_relative 'puma/predator'
+require_relative 'puma/shepherd'
