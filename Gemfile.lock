@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sam-shepherd (0.8.0)
+    sam-shepherd (0.8.2)
       hanami-cli (~> 0.2)
       tty-command (~> 0.7)
 

@@ -2,6 +2,4 @@
 
 require 'sam/version'
 require 'sam/errors'
-require 'sam/unicorn'
-require 'sam/puma'
 require 'sam/cli'
