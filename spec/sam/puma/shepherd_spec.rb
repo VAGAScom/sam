@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Sam::Puma::Shepherd, :focus do
+RSpec.describe Sam::Puma::Shepherd do
   let(:cmd) { TTY::Command.new(printer: :null) }
   let(:config) { Pathname.new(Dir.pwd).join('spec/fixtures/puma_settings.rb') }
 
