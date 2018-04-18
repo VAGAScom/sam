@@ -6,7 +6,7 @@ RSpec.describe Sam::Puma::Shepherd do
 
   subject(:shepherd) { described_class.new }
 
-  before(:each) { cmd.run! 'bundle exec sam puma start -c spec/fixtures/puma_settings.rb' }
+  before(:each) { cmd.run! 'bundle exec sam start puma spec/fixtures/puma_settings.rb' }
   after(:each) { cmd.run! 'bundle exec sam puma stop -c spec/fixtures/puma_settings.rb' }
 
   context 'Signal handling' do

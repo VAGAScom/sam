@@ -5,7 +5,7 @@ RSpec.describe 'sam unicorn monitor' do
   before(:each) { TTY::Command.new(printer: :null).run!("bundle exec sam unicorn stop -c #{config}") }
 
   it 'if the process has stopped it should quit' do
-    TTY::Command.new(printer: :null).run("bundle exec sam unicorn start -c #{config}")
+    TTY::Command.new(printer: :null).run("bundle exec sam start unicorn #{config}")
     pid = Process.spawn("bundle exec sam unicorn monitor -c #{config}")
     Process.detach(pid)
     TTY::Command.new(printer: :null).run("bundle exec sam unicorn stop -c #{config} && sleep 2")

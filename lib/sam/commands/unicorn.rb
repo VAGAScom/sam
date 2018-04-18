@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'unicorn/monitor'
-require_relative 'unicorn/reaper'
 require_relative 'unicorn/reloader'
-require_relative 'unicorn/spawner'
 require_relative 'unicorn/runner'
 
 # Upstart reload sends SIGHUP to the process

@@ -40,7 +40,7 @@ module Sam
       end
 
       def forward_signal(signal)
-        warn "Sending #{signal} to unicorn #{pid}"
+        warn "Sending #{signal} to puma #{pid}"
         Process.kill(signal, pid)
       end
 

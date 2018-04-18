@@ -7,7 +7,7 @@ SimpleCov.start do
   add_filter { |source| source.lines_of_code <= 4 }
   add_filter { |source| source.filename =~ /spec/ }
 
-  add_group 'CLI Commands', 'lib/sam/cli'
+  add_group 'CLI Commands', 'lib/sam/commands'
   add_group 'Unicorn Support', 'lib/sam/unicorn'
 end
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'puma/identifier'
-require_relative 'puma/breeder'
-require_relative 'puma/predator'
-require_relative 'puma/shepherd'
+require_relative 'servers/puma/identifier'
+require_relative 'servers/puma/predator'
+require_relative 'servers/puma/cloner'
+require_relative 'servers/puma/shepherd'

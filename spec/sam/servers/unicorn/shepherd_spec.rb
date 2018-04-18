@@ -6,7 +6,7 @@ RSpec.describe Sam::Unicorn::Shepherd do
 
   subject(:shepherd) { described_class.new }
 
-  before(:each) { cmd.run! 'bundle exec sam unicorn start -c spec/fixtures/server_settings.rb' }
+  before(:each) { cmd.run! 'bundle exec sam start unicorn spec/fixtures/server_settings.rb' }
   after(:each) { cmd.run! 'bundle exec sam unicorn stop -c spec/fixtures/server_settings.rb' }
 
   context 'Signal handling' do
