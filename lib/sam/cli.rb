@@ -25,7 +25,6 @@ module Sam
         require_relative 'unicorn'
         require_relative 'commands/unicorn'
         register 'unicorn' do |cmd|
-          cmd.register 'reload', Unicorn::Reloader
           cmd.register 'monitor', Unicorn::Monitor
           cmd.register 'run', Unicorn::Runner
         end
@@ -38,7 +37,6 @@ module Sam
         require_relative 'puma'
         require_relative 'commands/puma'
         register 'puma' do |cmd|
-          cmd.register 'reload', Puma::Reloader
           cmd.register 'monitor', Puma::Monitor
         end
       rescue Gem::LoadError
