@@ -8,7 +8,7 @@ RSpec.describe Sam::Unicorn::Identifier do
 
   after(:each) do
     TTY::Command.new(printer: :null)
-                .run!('bundle exec sam unicorn stop -c spec/fixtures/server_settings.rb && sleep 0.5')
+                .run!('bundle exec sam stop unicorn spec/fixtures/server_settings.rb && sleep 0.5')
   end
 
   it 'raises an error if no pid_file is found' do

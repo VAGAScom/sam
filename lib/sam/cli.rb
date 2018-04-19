@@ -3,6 +3,7 @@
 require 'hanami/cli'
 require_relative 'servers/breeder'
 require_relative 'servers/predator'
+require_relative 'servers/cloner'
 
 module Sam
   module CLI
@@ -12,10 +13,12 @@ module Sam
       require_relative 'commands/version'
       require_relative 'commands/spawner'
       require_relative 'commands/reaper'
+      require_relative 'commands/reloader'
 
       register 'version', Version
       register 'start', Spawner
       register 'stop', Reaper
+      register 'reload', Reloader
 
       begin
         gem 'unicorn'

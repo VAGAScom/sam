@@ -23,7 +23,7 @@ RSpec.describe 'sam stop', type: :cli do
 
   describe 'unicorn' do
     let(:config) { 'spec/fixtures/server_settings.rb' }
-    before(:each) { TTY::Command.new(printer: :null).run!("bundle exec sam unicorn stop #{config}") }
+    before(:each) { TTY::Command.new(printer: :null).run!("bundle exec sam stop unicorn #{config}") }
 
     it 'stops the unicorn server' do
       TTY::Command.new(printer: :null).run("bundle exec sam start unicorn #{config} && sleep 0.5")

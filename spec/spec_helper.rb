@@ -8,7 +8,7 @@ SimpleCov.start do
   add_filter { |source| source.filename =~ /spec/ }
 
   add_group 'CLI Commands', 'lib/sam/commands'
-  add_group 'Unicorn Support', 'lib/sam/unicorn'
+  add_group 'Server Support', 'lib/sam/servers'
 end
 
 RSpec.configure do |config|

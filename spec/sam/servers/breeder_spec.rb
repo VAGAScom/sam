@@ -10,8 +10,8 @@ RSpec.describe Sam::Servers::Breeder do
   let(:cmd) { TTY::Command.new(printer: :null) }
 
   after(:each) do
-    cmd.run! "bundle exec sam puma stop -c #{puma}"
-    cmd.run! "bundle exec sam unicorn stop -c #{unicorn}"
+    cmd.run! "bundle exec sam stop puma #{puma}"
+    cmd.run! "bundle exec sam stop unicorn #{unicorn}"
   end
 
   it 'start an unicorn instance' do

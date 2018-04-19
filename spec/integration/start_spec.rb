@@ -2,7 +2,7 @@
 
 RSpec.describe 'sam start', type: :cli do
   let(:config) { 'spec/fixtures/puma_settings.rb' }
-  before(:each) { TTY::Command.new(printer: :null).run!("bundle exec sam puma stop -c #{config}") }
+  before(:each) { TTY::Command.new(printer: :null).run!("bundle exec sam stop puma #{config}") }
 
   it 'prints a helpful message' do
     output = <<~OUTPUT
@@ -34,7 +34,7 @@ RSpec.describe 'sam start', type: :cli do
     %w[production development test staging].each do |env|
       it "works with #{env}" do
         run_command "sam start puma ../../#{config} -e #{env}", exit_status: 0
-        run_command "sam puma stop -c ../../#{config}", exit_status: 0
+        run_command "sam stop puma ../../#{config}", exit_status: 0
       end
     end
 
@@ -54,7 +54,7 @@ RSpec.describe 'sam start', type: :cli do
 
   context 'unicorn' do
     let(:config) { 'spec/fixtures/server_settings.rb' }
-    after(:each) { TTY::Command.new(printer: :null).run!("bundle exec sam puma stop -c #{config}") }
+    after(:each) { TTY::Command.new(printer: :null).run!("bundle exec sam stop puma #{config}") }
 
     it 'start an unicorn server' do
       run_command "sam start unicorn ../../#{config}", exit_status: 0
