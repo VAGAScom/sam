@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'unicorn'
-
 module Sam
   module Unicorn
     class Identifier

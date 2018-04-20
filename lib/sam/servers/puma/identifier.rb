@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'puma/cli'
-
 module Sam
   module Puma
     class Identifier

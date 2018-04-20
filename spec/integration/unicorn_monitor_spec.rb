@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-RSpec.describe 'sam unicorn monitor' do
+RSpec.describe 'sam monitor' do
   let(:config) { 'spec/fixtures/server_settings.rb' }
   before(:each) { TTY::Command.new(printer: :null).run!("bundle exec sam stop unicorn #{config}") }
 
   it 'if the process has stopped it should quit' do
     TTY::Command.new(printer: :null).run("bundle exec sam start unicorn #{config}")
-    pid = Process.spawn("bundle exec sam unicorn monitor -c #{config}")
+    pid = Process.spawn("bundle exec sam monitor unicorn #{config}")
     Process.detach(pid)
     TTY::Command.new(printer: :null).run("bundle exec sam stop unicorn #{config} && sleep 2")
     expect { Process.kill(0, pid) }.to raise_error Errno::ESRCH
