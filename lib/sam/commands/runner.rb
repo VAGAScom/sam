@@ -12,7 +12,6 @@ module Sam
         option :env, values: %w[production development test staging], default: 'production', desc: 'RACK_ENV to be used', aliases: ['-e']
         option :timeout, aliases: ['-t'], default: 10, desc: 'The amount of time waiting for the server  process to fork new workers'
 
-
         example [
           'puma config/server_settings.rb -e test # Starts and monitors the server in test mode using the config/server_settings.rb config file',
           'unicorn config/server_settings.rb  #Starts and monitors the server in production mode using the config/server_settings.rb config file'
