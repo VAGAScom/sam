@@ -5,16 +5,18 @@ module Sam
     class Shepherd
       def initialize
         trap_signals
+        @restarting = false
       end
 
-      def call(server:, config:)
+      def call(server:, config:, timeout: 0.5)
         @config = config
         @server = server
+        @timeout = timeout
         loop do
           Process.kill(0, pid)
+        rescue Errno::ESRCH
+          raise Errors::ProcessNotFound unless @restarting
         end
-      rescue Errno::ESRCH
-        raise Errors::ProcessNotFound
       end
 
       private
@@ -34,7 +36,9 @@ module Sam
       end
 
       def reload_server
-        @pid = Cloner.new.call(server: @server, config: @config)
+        @restarting = true
+        @pid = Cloner.new.call(server: @server, config: @config, timeout: @timeout)
+        @restarting = false
       end
 
       def forward_signal(signal)

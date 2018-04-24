@@ -1,8 +1,7 @@
 # Sam
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/a8c24394996582c1b59f/maintainability)](https://codeclimate.com/github/VAGAScom/sam/maintainability)
-[![Gem Version](https://badge.fury.io/rb/sam.svg)](https://badge.fury.io/rb/sam)
-[![Build Status](https://travis-ci.org/VAGAScom/sam.svg?branch=master)](https://travis-ci.org/VAGAScom/sam)
+[![Gem Version](https://badge.fury.io/rb/sam-shepherd.svg)](https://badge.fury.io/rb/sam)
 [![Dependency Status](https://beta.gemnasium.com/badges/github.com/VAGAScom/sam.svg)](https://beta.gemnasium.com/projects/github.com/VAGAScom/sam)
 
 
@@ -29,13 +28,8 @@ Or install it yourself as:
 
 ## Usage
 
-**Sam** comes with the following commands:
+**Sam** is pretty straightforward and you can rely on its internal documentation. By invoking `sam` you can see the list of available commands. For a more in-depth help for each command, you can pass a `-h` flag to it, like this: `sam run -h`
 
-1. `unicorn start`: starts an  `unicorn` instance
-2. `unicorn stop`: stops an `unicorn` instance
-3. `unicorn monitor`: start a monitoring loop over the running `unicorn` instance. It will forward the signals `HUP, USR2, TERM, QUIT, TTIN, TTOU` to the `unicorn` instance. `HUP` will do an graceful reload of the application
-4. `unicorn reload`: reloads the `unicorn` instance by issuing a `USR2` followed by a `QUIT` signal a few seconds later
-5. `unicorn run`: starts and monitors an `unicorn` instance
 
 ## Development
 

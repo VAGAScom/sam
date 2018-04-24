@@ -14,7 +14,7 @@ RSpec.describe Sam::Servers::Cloner do
   it 'restarts unicorn' do
     cmd.run! "bundle exec sam start unicorn #{unicorn}"
     expect do
-      cloner.call(server: 'unicorn', config: unicorn)
+      cloner.call(server: 'unicorn', config: unicorn, timeout: 0.5)
       sleep 0.5
     end.to change { Sam::Unicorn::Identifier.new.call(unicorn) }
   end
@@ -22,7 +22,7 @@ RSpec.describe Sam::Servers::Cloner do
   it 'restarts puma' do
     cmd.run! "bundle exec sam start puma #{puma}"
     expect do
-      cloner.call(server: 'puma', config: puma)
+      cloner.call(server: 'puma', config: puma, timeout: 0.5)
     end.to change { `pgrep -af puma` }
   end
 end
