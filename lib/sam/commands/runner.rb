@@ -20,7 +20,7 @@ module Sam
 
         def call(server:, config:, env:, timeout:)
           Sam::Servers::Breeder.new.call(server: server, config: config, env: env)
-          Sam::Servers::Monitor.new.call(server: server, config: config, timeout: timeout)
+          Sam::Servers::Shepherd.new.call(server: server, config: config, timeout: timeout)
         rescue Sam::Errors::ProcessNotFound
           warn "#{server} exited"
           exit 1
