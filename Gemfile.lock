@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sam-shepherd (0.9.0)
+    sam-shepherd (0.9.1)
       hanami-cli (~> 0.2)
       tty-command (~> 0.7)
 
@@ -126,7 +126,7 @@ GEM
       method_source (~> 0.9.0)
     public_suffix (3.0.2)
     puma (3.11.4)
-    rack (2.0.4)
+    rack (2.0.5)
     rack-protection (2.0.1)
       rack
     rainbow (3.0.0)
@@ -193,7 +193,7 @@ GEM
     tty-command (0.8.0)
       pastel (~> 0.7.0)
     tty-which (0.3.0)
-    unicode-display_width (1.3.0)
+    unicode-display_width (1.3.2)
     unicorn (5.4.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
