@@ -32,14 +32,16 @@ RSpec.describe Sam::Servers::Shepherd do
       it 'forwards SIGTTOU and SIGTTIN to the unicorn process'
 
       it 'when HUP is send, the process is reloaded' do
-        monit = Process.fork { shepherd.call(server: 'unicorn', config: config, timeout: 0.5) }
-        Process.detach(monit)
-        expect do
-          Process.kill('HUP', monit)
-          sleep 5
-        end.to change { Sam::Unicorn::Identifier.new.call(config) }
-      ensure
-        Process.kill('KILL', monit)
+        begin
+          monit = Process.fork { shepherd.call(server: 'unicorn', config: config, timeout: 0.5) }
+          Process.detach(monit)
+          expect do
+            Process.kill('HUP', monit)
+            sleep 5
+          end.to change { Sam::Unicorn::Identifier.new.call(config) }
+        ensure
+          Process.kill('KILL', monit)
+        end
       end
     end
 

@@ -15,7 +15,7 @@ Sam, the shepphered, will look after your unicorns so that they play nice with `
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'sam'
+gem 'sam-shepherd'
 ```
 
 And then execute:

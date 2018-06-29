@@ -13,12 +13,15 @@ RSpec.describe Sam::Puma::Identifier do
   end
 
   it 'returns the PID of the unicorn process' do
-    cmd = TTY::Command.new(printer: :null)
-    cmd.run "bundle exec sam start puma #{config}"
-    pid = IO.readlines('/tmp/puma.pid').join.chomp.to_i
-    expect(identifier.call(config)).to eq(pid)
-  ensure
-    TTY::Command.new(printer: :null)
-                .run!('bundle exec sam stop puma spec/fixtures/puma_settings.rb && sleep 0.5')
+    begin
+      cmd = TTY::Command.new(printer: :null)
+      cmd.run "bundle exec sam start puma #{config}"
+      pid = IO.readlines('/tmp/puma.pid').join.chomp.to_i
+      expect(identifier.call(config)).to eq(pid)
+
+    ensure
+      TTY::Command.new(printer: :null)
+        .run!('bundle exec sam stop puma spec/fixtures/puma_settings.rb && sleep 0.5')
+    end
   end
 end
