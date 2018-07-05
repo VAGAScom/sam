@@ -13,9 +13,11 @@ module Sam
         @server = server
         @timeout = timeout
         loop do
-          Process.kill(0, pid)
-        rescue Errno::ESRCH
-          raise Errors::ProcessNotFound unless @restarting
+          begin
+            Process.kill(0, pid)
+          rescue Errno::ESRCH
+            raise Errors::ProcessNotFound unless @restarting
+          end
         end
       end
 
